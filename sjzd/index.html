@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>数据库整理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="i@felix021.com">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner" style="opacity:0.75">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">数据字典</a>
+          <div class="nav-collapse collapse">
+              <!--
+              <p class="navbar-text pull-right">
+                  <a target="_blank" href="#" class="navbar-link">logout</a>
+              </p>
+              <ul class="nav">
+                  <li class="active"><a href="#">A</a></li>
+                  <li><a href="#">B</a></li>
+              </ul>
+              -->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <script src="sjzd.js"></script>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+
+          <div class="well sidebar-nav" style="padding:10px;">
+              <ul class="nav nav-tabs">
+                  <li id="tab_table" class="active"><a onclick="switch_tab('table')">表格</a></li>
+                  <li id="tab_type"><a onclick="switch_tab('type')">类型</a></li>
+                  <li id="tab_constant"><a onclick="switch_tab('constant')">常量</a></li>
+              </ul>
+
+              <div class="form-search" style="text-align:center;">
+                  <div id="nav-tables" class="input-append">
+                      <input class="search-query" id="query" type="text"
+                            placeholder="输入查询关键字，或新的名称" onkeyup="javascript:query();" />
+                      <button class="btn" onclick="add_new();">新建</button>
+                  </div>
+              </div>
+
+              <hr>
+
+              <ul class="nav nav-tabs nav-stacked" style="background-color:#fff;" id="result">
+                  <li><a href="#">先输入查询关键字(支持正则)↑↑↑ </a></li>
+              </ul>
+          </div>
+
+          <pre style="text-align:center;">最近查看</pre>
+          <ul class="nav nav-tabs nav-stacked" style="background-color:#fff;" id="recent">
+
+        </div><!--/span-->
+        <div class="span9">
+          <div id="detail_table" class="hero-unit" style="padding:20px; display:none;">
+            <h3 id="title_table"></h3>
+            <div id="content_table" style="font-size:14px;">
+            <div>
+                <p><strong>表描述:</strong> <span id="note_table"></span></p>
+                <table id="fields_table" class="table table-bordered"></table>
+            </div>
+            <div>
+                <input type="button" class="btn" onclick="do_save()" value="保存" />
+                <span id="info_table" style="color:#ff0000"></span>
+            </div>
+            <hr>
+
+            <div>
+                <div class="row" style="margin-left:10px;">
+                    <div id="index"></div>
+                </div>
+                <div id="nav-tables" class="form-search" style="display:block;text-align:left; margin:10px;">
+                  <div class="input-append">
+                    <input class="input-xlarge search-query" id="new_index_name" type="text" style="padding-left:10px; width:150px;"
+                          placeholder="输入索引名称" onkeyup="javascript:query();" />
+                    <button class="btn" onclick="add_index();">添加</button>
+                  </div>
+                    <input type="checkbox" name="is_primary_key" id="is_primary_key" />主键
+                </div>
+            </div>
+
+            <hr>
+            <div>
+                <p><strong>SQL</strong></p>
+                <textarea id="sql" style="width:95%;height:300px;"></textarea>
+            </div>
+
+            </div>
+          </div>
+
+          <div id="detail_type" class="hero-unit" style="padding:20px; display:none;">
+                <h3 id="title_type"></h3>
+                <div id="fields_type"></div>
+                <div>
+                    <input style="margin-left:145px;" type="button" class="btn" onclick="do_save()" value="保存" />
+                    <span id="info_type" style="color:#ff0000"></span>
+                </div>
+          </div>
+
+          <div id="detail_constant" class="hero-unit" style="padding:20px; display:none;">
+          </div>
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+        <div id="container_tooltips"></div>
+    </div><!--/.fluid-container-->
+
+    <script src="assets/js/json2.js"></script>
+    <script src="assets/js/sprintf.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
+
