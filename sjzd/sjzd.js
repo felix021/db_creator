@@ -855,7 +855,7 @@ function display_constant(constant_conf)
 
     fields_constant.append(build_obj([
         '<tr>',
-            ['<td>', $('<input type="text">').css('width', '180px').attr('id', '__new_key')],
+            ['<td>', $('<input type="text">').css('width', '120px').attr('id', '__new_key')],
             ['<td>', $('<input type="text">').attr('id', '__new_value')],
             ['<td>', $('<input type="button">').val('添加').on('click', function () {
                         var key = O('__new_key').value, value = O('__new_value').value;
