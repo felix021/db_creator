@@ -15,6 +15,9 @@ var new_config = {
         "key_name": '',
     },
     'constant': {
+        "version": 0,
+        "name": '',
+        "value": {}
     }
 };
 
@@ -798,6 +801,74 @@ function display_type(type_conf) {
             ]);
 
     $('#fields_type').html('').append(fields_type);
+}
+
+function display_constant(constant_conf)
+{
+    current_constant = constant_conf;
+
+    $('#title_constant').html("[版本:" + constant_conf.version + "] " + constant_conf.name);
+
+    var fields_constant = $('<table class="table table-bordered" style="width:600px;">');
+
+    fields_constant.append(build_obj([
+        '<tr>', 
+            ['<td width="120">', '取值'],
+            ['<td width="200">', '含义']
+    ]));
+
+    function adjust(key) {
+        if (typeof(key) != 'string')
+            return JSON.stringify(key);
+        return key;
+    }
+
+    $.each(constant_conf.value, function (key, value) {
+
+        fields_constant.append(build_obj([
+            '<tr>',
+                ['<td>', $('<input type="text">').css('width', '120px').val(key).on('blur', function () {
+                                var new_key = this.value;
+                                if (new_key != key) {
+                                    if (new_key in current_constant.value) {
+                                        info('该枚举值已经存在，请换一个');
+                                        this.focus();
+                                        return;
+                                    }
+                                    delete current_constant.value[key];
+                                    current_constant.value[new_key] = value;
+                                    set_edit();
+                                }
+                         })],
+                ['<td>', $('<input type="text">').val(value).on('blur', function () {
+                                if (this.value != value) {
+                                    current_constant.value[key] = this.value;
+                                    set_edit('no_refresh');
+                                }
+                         })],
+                ['<td>', $('<input type="button">').attr('name', key).val('删除').on('click', function () {
+                                delete current_constant.value[key];
+                                set_edit();
+                         })]
+        ]));
+    });
+
+    fields_constant.append(build_obj([
+        '<tr>',
+            ['<td>', $('<input type="text">').css('width', '180px').attr('id', '__new_key')],
+            ['<td>', $('<input type="text">').attr('id', '__new_value')],
+            ['<td>', $('<input type="button">').val('添加').on('click', function () {
+                        var key = O('__new_key').value, value = O('__new_value').value;
+                        if (key in current_constant.value) {
+                            info('该枚举值已经存在，请直接修改');
+                            return;
+                        }
+                        current_constant.value[key] = value;
+                        set_edit();
+                     })]
+    ]));
+
+    $('#fields_constant').html('').append(fields_constant);
 }
 
 function generate_sql(table_conf) {
