@@ -450,7 +450,7 @@ function add_new_field () {
 function display_table(table_conf)
 {
     current_table = table_conf;
-    current_table.fields.sort(function (a, b) { return a.seq > b.seq; });
+     current_table.fields.sort(function (a, b) { return Number.parseInt(a.seq) - Number.parseInt(b.seq); });
 
     function mk_text(name, value, width, v_id, other) {
         return $('<input type="text" ' + (other || '') + ' />')
