@@ -377,7 +377,7 @@ function update_current_table(name, value, no_refresh) {
         for (var i = 0; i < current_table.fields.length; i++) {
             var c_field = current_table.fields[i];
             if (field_attr == 'seq')
-                value = Number.parseInt(value);
+                value = (value - 0);
             if (c_field.name == field_name) {
                 if (c_field[field_attr] == value) //not changed
                     return false;
@@ -450,7 +450,7 @@ function add_new_field () {
 function display_table(table_conf)
 {
     current_table = table_conf;
-     current_table.fields.sort(function (a, b) { return Number.parseInt(a.seq) - Number.parseInt(b.seq); });
+     current_table.fields.sort(function (a, b) { return (a.seq - 0) - (b.seq - 0); });
 
     function mk_text(name, value, width, v_id, other) {
         return $('<input type="text" ' + (other || '') + ' />')
